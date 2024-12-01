@@ -23,10 +23,10 @@ class DataIngestion:
     def __init__(self):
         self.ingestion_config=DataIngestionConfig()
     
-    def initiate_data_ingestion(self):
+    def initiate_data_ingestion(self,data_path):
         logging.info("Entered the data ingestion method or component")
         try:
-            df=pd.read_csv("src\\notebook\\data\\stud.csv")
+            df=pd.read_csv(data_path)
             logging.info("Read the dataset as dataframe")
 
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
@@ -51,7 +51,8 @@ class DataIngestion:
 #For Unit Test      
 if __name__=="__main__":
     obj=DataIngestion()
-    train_data, test_data = obj.initiate_data_ingestion()
+    data_path ="src\\notebook\\data\\stud.csv"
+    train_data, test_data = obj.initiate_data_ingestion(data_path)
 
     data_transformation = DataTansformation()
     data_transformation.initiate_data_transformation(train_data,test_data,"math_score")
