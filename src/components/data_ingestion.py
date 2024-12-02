@@ -53,7 +53,7 @@ class DataIngestion:
 #For Unit Test      
 if __name__=="__main__":
     obj=DataIngestion()
-    data_path ="src\\notebook\\data\\stud.csv"
+    data_path ="notebook\\data\\stud.csv"
     train_data, test_data = obj.initiate_data_ingestion(data_path)
 
     data_transformation = DataTansformation()
