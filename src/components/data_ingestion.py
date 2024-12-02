@@ -13,6 +13,8 @@ from dataclasses import dataclass
 from data_transformation import DataTansformation
 from data_transformation import DataTransformationConfig
 
+from model_trainer import (ModelTrainerConfig,ModelTrainer)
+
 @dataclass
 class DataIngestionConfig:
     train_data_path: str=os.path.join('artifacts','train.csv')
@@ -23,7 +25,7 @@ class DataIngestion:
     def __init__(self):
         self.ingestion_config=DataIngestionConfig()
     
-    def initiate_data_ingestion(self,data_path):
+    def initiate_data_ingestion(self,data_path: str):
         logging.info("Entered the data ingestion method or component")
         try:
             df=pd.read_csv(data_path)
@@ -55,4 +57,7 @@ if __name__=="__main__":
     train_data, test_data = obj.initiate_data_ingestion(data_path)
 
     data_transformation = DataTansformation()
-    data_transformation.initiate_data_transformation(train_data,test_data,"math_score")
+    train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_data,test_data,"math_score")
+
+    modeltrainer = ModelTrainer()
+    print(modeltrainer.initiate_model_trainer(train_arr, test_arr))

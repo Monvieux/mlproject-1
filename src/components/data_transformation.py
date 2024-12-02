@@ -16,6 +16,9 @@ from exception import CustomException
 from logger import logging
 from utils import save_object
 
+from typing import TypeVar
+PandasDataFrame = TypeVar('pandas.core.frame.DataFrame')
+
 @dataclass
 class DataTransformationConfig:
     preprocessor_ob_file_path = os.path.join('artifacts',"preprocessor.pkl")
@@ -24,7 +27,7 @@ class DataTansformation:
     def __init__(self):
         self.data_transformation_config=DataTransformationConfig()
 
-    def get_data_transformer_object(self,df):
+    def get_data_transformer_object(self,df: PandasDataFrame):
         '''
         This function is responsible for data transformation
         '''
@@ -71,7 +74,7 @@ class DataTansformation:
         except Exception as e:
             raise CustomException(e,sys)
         
-    def initiate_data_transformation(self,train_path,test_path,target):
+    def initiate_data_transformation(self,train_path: str,test_path: str,target: str):
         try:
             train_df = pd.read_csv(train_path)
             test_df = pd.read_csv(test_path)
